@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cantinho do Foco</title>
+
+  <!-- Ícones do Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+<body class="theme-system">
+
+  <div class="bg-layer">
+    <div class="bg-layer-image"></div>
+    <div class="bg-layer-overlay"></div>
+  </div>
+
+  <!-- Brilho de Efeito Ambiente -->
+  <div class="ambient-glow"></div>
+
+  <!-- Barra Superior de Navegação -->
+  <header class="top-bar">
+    <div class="header-left">
+      <div class="brand-container">
+        <div class="logo">
+          <span class="material-symbols-rounded logo-icon">timer</span>
+          <span class="logo-text">Cantinho do Foco</span>
+          <button id="btn-fire" class="fire-btn" title="Sequência">🔥 <span id="fire-count">0</span></button>
+        </div>
+        <span class="user-greeting" id="user-greeting">Coloque seu nome aqui</span>
+        <span class="brand-subtitle" id="brand-subtitle">Foco • Pausas • Tarefas</span>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="mode-switcher">
+        <button id="btn-pomodoro" class="mode-btn active" data-target="painel-pomodoro">Pomodoro</button>
+        <button id="btn-temporizador" class="mode-btn" data-target="painel-temporizador">Temporizador</button>
+        <button id="btn-cronometro" class="mode-btn" data-target="painel-cronometro">Cronômetro</button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button id="btn-temas" class="meu-botao accent-btn icon-only" title="Temas">
+        <span class="material-symbols-rounded">palette</span>
+      </button>
+      <button id="btn-tarefas" class="meu-botao icon-only" title="Tarefas">
+        <span class="material-symbols-rounded">format_list_bulleted</span>
+      </button>
+      <button id="btn-musica" class="meu-botao icon-only" title="Música">
+        <span class="material-symbols-rounded">music_note</span>
+      </button>
+      <button id="btn-lang" class="meu-botao icon-only" title="Idioma">
+        <span class="material-symbols-rounded">language</span>
+      </button>
+      <button id="open-settings-btn" class="meu-botao icon-only" title="Configurações">
+        <span class="material-symbols-rounded">settings</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Caixa Principal do Cronômetro -->
+  <main class="container-principal">
+    <div class="modos-timer-externo">
+      <button id="modo-foco" class="btn-modo ativo">Foco</button>
+      <button id="modo-curto" class="btn-modo">Pausa Curta</button>
+      <button id="modo-longo" class="btn-modo">Pausa Longa</button>
+    </div>
+
+    <div class="cronometro-container">
+      <svg class="circulo-svg" viewBox="0 0 450 450">
+        <circle class="circulo-fundo" cx="225" cy="225" r="215" />
+        <circle id="circulo-progresso" class="circulo-progresso" cx="225" cy="225" r="215" />
+      </svg>
+
+      <div class="cronometro">
+        <h1>25:00</h1>
+        <p id="label-status">Foco 💪</p>
+      </div>
+    </div>
+
+    <div class="controles-externos">
+      <button id="btn-alternar" class="btn-controle btn-alternar">
+        <span class="material-symbols-rounded">play_arrow</span> Iniciar
+      </button>
+      <button id="btn-reiniciar" class="btn-controle btn-reiniciar">
+        <span class="material-symbols-rounded">refresh</span> Reiniciar
+      </button>
+    </div>
+  </main>
+
+  <!-- Painel Lateral: Lista de Tarefas -->
+  <aside id="painel-tarefas" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Tarefas</h2>
+      <button class="btn-fechar" onclick="fecharPaineis()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+      <div class="input-grupo">
+        <input type="text" id="nova-tarefa" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')adicionarTarefa()">
+        <button id="btn-add-tarefa" onclick="adicionarTarefa()">+</button>
+      </div>
+      <div id="tarefas-status" class="tarefas-status">0 tarefas</div>
+      <ul id="lista-tarefas"></ul>
+    </div>
+  </aside>
+
+  <!-- Painel Lateral: Player de Música -->
+  <aside id="painel-musica" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Player de Música</h2>
+      <button class="btn-fechar" onclick="fecharPaineis()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+      <div class="music-widget">
+        <div class="youtube-embed-wrapper">
+          <iframe id="yt-embed" title="YouTube music player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="custom-embed">
+          <input type="text" id="embed-url" placeholder="Cole o link do YouTube aqui...">
+          <button id="btn-carregar-embed">Carregar Player</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Painel Lateral: Temas -->
+  <aside id="painel-temas" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Temas</h2>
+      <button class="btn-fechar" onclick="fecharPaineis()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+      <section class="setting-group">
+        <h3>🖼️ Temas</h3>
+        <div class="theme-filters">
+          <button class="theme-filter-btn active" data-filter="menina">Meninas</button>
+          <button class="theme-filter-btn" data-filter="menino">Meninos</button>
+        </div>
+        <div class="theme-grid">
+          <button class="theme-item" data-gender="menina" data-bg="meninas/4 anos/Animais fofos.png" data-overlay="0">
+            <img src="meninas/4 anos/Animais fofos.png" alt="Animais fofos">
+            <span>Animais fofos</span>
+          </button>
+          <button class="theme-item" data-gender="menina" data-bg="meninas/4 anos/Brincadeiras no parque.png" data-overlay="0">
+            <img src="meninas/4 anos/Brincadeiras no parque.png" alt="Brincadeiras no parque">
+            <span>Brincadeiras no parque</span>
+          </button>
+          <button class="theme-item" data-gender="menina" data-bg="meninas/4 anos/Brinquedos clássicos .png" data-overlay="0">
+            <img src="meninas/4 anos/Brinquedos clássicos .png" alt="Brinquedos clássicos">
+            <span>Brinquedos clássicos</span>
+          </button>
+          <button class="theme-item" data-gender="menina" data-bg="meninas/4 anos/Céu e nuvens.png" data-overlay="0">
+            <img src="meninas/4 anos/Céu e nuvens.png" alt="Céu e nuvens">
+            <span>Céu e nuvens</span>
+          </button>
+          <button class="theme-item" data-gender="menina" data-bg="meninas/4 anos/Flores e jardim.png" data-overlay="0">
+            <img src="meninas/4 anos/Flores e jardim.png" alt="Flores e jardim">
+            <span>Flores e jardim</span>
+          </button>
+          <button class="theme-item" data-gender="menina" data-bg="meninas/4 anos/Frutas divertidas.png" data-overlay="0">
+            <img src="meninas/4 anos/Frutas divertidas.png" alt="Frutas divertidas">
+            <span>Frutas divertidas</span>
+          </button>
+          <button class="theme-item" data-gender="menino" data-bg="meninos/4 anos/Animais da Selva.png" data-overlay="0">
+            <img src="meninos/4 anos/Animais da Selva.png" alt="Animais da Selva">
+            <span>Animais da Selva</span>
+          </button>
+          <button class="theme-item" data-gender="menino" data-bg="meninos/4 anos/Dinossauros Amigáveis.png" data-overlay="0">
+            <img src="meninos/4 anos/Dinossauros Amigáveis.png" alt="Dinossauros Amigáveis">
+            <span>Dinossauros Amigáveis</span>
+          </button>
+          <button class="theme-item" data-gender="menino" data-bg="meninos/4 anos/Céu e Nuvens.png" data-overlay="0">
+            <img src="meninos/4 anos/Céu e Nuvens.png" alt="Céu e Nuvens">
+            <span>Céu e Nuvens</span>
+          </button>
+          <button class="theme-item" data-gender="menino" data-bg="meninos/4 anos/Brinquedos e Blocos.png" data-overlay="0">
+            <img src="meninos/4 anos/Brinquedos e Blocos.png" alt="Brinquedos e Blocos">
+            <span>Brinquedos e Blocos</span>
+          </button>
+          <button class="theme-item" data-gender="menino" data-bg="meninos/4 anos/Espaço e Planetas.png" data-overlay="0">
+            <img src="meninos/4 anos/Espaço e Planetas.png" alt="Espaço e Planetas">
+            <span>Espaço e Planetas</span>
+          </button>
+          <button class="theme-item" data-gender="menino" data-bg="meninos/4 anos/Carros e Caminhões.png" data-overlay="0">
+            <img src="meninos/4 anos/Carros e Caminhões.png" alt="Carros e Caminhões">
+            <span>Carros e Caminhões</span>
+          </button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Suas imagens / vídeos</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <div>
+              <label>Adicionar mídia própria</label>
+              <span class="settings-row-hint">Imagens ou vídeos curtos. Máx. 20 MB cada. Até 8 arquivos.</span>
+            </div>
+          </div>
+          <div class="settings-row">
+            <input type="file" id="custom-media-upload" accept="image/*,video/*" multiple>
+          </div>
+          <div id="custom-media-list" class="custom-media-list"></div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Ajustes do fundo</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <div>
+              <label for="bg-brightness">Claridade</label>
+              <span class="settings-row-hint">0% = escuro, 100% = claro</span>
+            </div>
+            <input type="number" id="bg-brightness" class="small-input" min="0" max="100" value="100">
+          </div>
+          <div class="settings-row">
+            <div>
+              <label for="bg-blur">Desfoque</label>
+              <span class="settings-row-hint">0px = nítido, 20px = máximo</span>
+            </div>
+            <input type="number" id="bg-blur" class="small-input" min="0" max="20" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Painel Lateral: Pomodoro -->
+  <aside id="painel-pomodoro" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Pomodoro</h2>
+      <button class="btn-fechar" onclick="fecharPaineis()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+      <div class="settings-section">
+        <div class="settings-section-title">Tempo (minutos)</div>
+        <div class="settings-time-grid">
+          <div class="time-input-box">
+            <label for="pomodoro-time">Pomodoro</label>
+            <input type="number" id="pomodoro-time" min="1" max="120" value="25">
+          </div>
+          <div class="time-input-box">
+            <label for="short-break">Pausa Curta</label>
+            <input type="number" id="short-break" min="1" max="60" value="5">
+          </div>
+          <div class="time-input-box">
+            <label for="long-break">Pausa Longa</label>
+            <input type="number" id="long-break" min="1" max="60" value="15">
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Comportamento</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <div>
+              <label for="long-break-interval">Pausa Longa a cada</label>
+              <span class="settings-row-hint">Número de pomodoros até a pausa longa</span>
+            </div>
+            <input type="number" id="long-break-interval" min="1" max="12" value="4" class="small-input">
+          </div>
+          <div class="settings-row">
+            <div>
+              <label for="auto-start-breaks">Iniciar Pausas Auto</label>
+              <span class="settings-row-hint">Inicia a pausa quando o foco termina</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="auto-start-breaks">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="settings-row">
+            <div>
+              <label for="auto-start-pomodoros">Iniciar Pomodoros Auto</label>
+              <span class="settings-row-hint">Inicia o pomodoro quando a pausa termina</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="auto-start-pomodoros">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Painel Lateral: Temporizador -->
+  <aside id="painel-temporizador" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Temporizador</h2>
+      <button class="btn-fechar" onclick="fecharPaineis()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+      <div class="settings-section">
+        <div class="settings-section-title">Tempo</div>
+        <div class="settings-time-grid">
+          <div class="time-input-box">
+            <label for="timer-hours">Horas</label>
+            <input type="number" id="timer-hours" min="0" max="23" value="0">
+          </div>
+          <div class="time-input-box">
+            <label for="timer-minutes">Minutos</label>
+            <input type="number" id="timer-minutes" min="0" max="59" value="5">
+          </div>
+          <div class="time-input-box">
+            <label for="timer-seconds">Segundos</label>
+            <input type="number" id="timer-seconds" min="0" max="59" value="0">
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Painel Lateral: Cronômetro -->
+  <aside id="painel-cronometro" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Cronômetro</h2>
+      <button class="btn-fechar" onclick="fecharPaineis()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+      <div class="settings-section">
+        <div class="settings-section-title">Cronômetro</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <div>
+              <label>Contagem regressiva</label>
+              <span class="settings-row-hint">Clique em Iniciar para começar a contar o tempo.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="countdown-mode">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="settings-row column">
+            <label for="timer-seconds">Tempo limite (segundos)</label>
+            <input type="number" id="stopwatch-limit" min="0" max="9999" value="0" placeholder="0 = sem limite">
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Painel Lateral: Configurações -->
+  <aside id="painel-config" class="painel-lateral oculto">
+    <div class="painel-cabecalho">
+      <h2>Configurações</h2>
+      <button class="btn-fechar" onclick="fecharConfig()">✖</button>
+    </div>
+    <div class="painel-conteudo">
+
+      <div class="settings-section">
+        <div class="settings-section-title">Perfil</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <label for="input-user-name">Seu nome</label>
+            <input type="text" id="input-user-name" placeholder="Escreva seu nome" value="Evanildo">
+          </div>
+          <div class="settings-row two-cols">
+            <div>
+              <label for="user-birthday">Aniversário</label>
+              <input type="text" id="user-birthday" placeholder="DD/MM/AAAA" maxlength="10">
+            </div>
+            <div>
+              <label for="user-age">Idade</label>
+              <input type="number" id="user-age" placeholder="Automática" readonly>
+            </div>
+          </div>
+          <div class="settings-row">
+            <label for="user-gender">Gênero</label>
+            <select id="user-gender" class="select-inline">
+              <option value="menina">Menina</option>
+              <option value="menino">Menino</option>
+            </select>
+          </div>
+        </div>
+        <div class="profiles-list" id="profiles-list"></div>
+        <button id="btn-add-profile" class="settings-add-profile">+ Adicionar Perfil</button>
+
+        <div class="auth-buttons">
+          <button id="btn-login-google" class="btn-social btn-google">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            <span>Entrar com o Google</span>
+          </button>
+          <button id="btn-login-apple" class="btn-social btn-apple">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.67-.82 1.12-1.96.99-3.1-.96.04-2.13.65-2.81 1.45-.61.71-1.14 1.87-1 3 1.08.08 2.17-.53 2.82-1.35z"/></svg>
+            <span>Entrar com a Apple</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Aparência</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <label>Cor de destaque</label>
+            <div class="color-pills">
+              <button type="button" class="color-pill" data-color="#ffa500" data-target="accent-color" style="background:#ffa500" aria-label="Laranja"></button>
+              <button type="button" class="color-pill" data-color="#ea00ff" data-target="accent-color" style="background:#ea00ff" aria-label="Roxo"></button>
+              <button type="button" class="color-pill" data-color="#ff4757" data-target="accent-color" style="background:#e43947" aria-label="Vermelho"></button>
+              <button type="button" class="color-pill" data-color="#1e90ff" data-target="accent-color" style="background:#1e90ff" aria-label="Azul"></button>
+              <button type="button" class="color-pill" data-color="#2ed573" data-target="accent-color" style="background:#2ed573" aria-label="Verde"></button>
+            </div>
+            <select id="accent-color" hidden>
+              <option value="#ffa500">Laranja</option>
+              <option value="#ea00ff">Roxo Magenta</option>
+              <option value="#ff4757">Vermelho</option>
+              <option value="#1e90ff">Azul</option>
+              <option value="#2ed573">Verde</option>
+            </select>
+          </div>
+          <div class="settings-row column">
+            <label for="bg-image-url">Foto de Fundo (URL)</label>
+            <input type="text" id="bg-image-url" placeholder="https://exemplo.com/imagem.jpg">
+          </div>
+        </div>
+      </div>
+
+       <div class="settings-section">
+        <div class="settings-section-title">Alarme e Som</div>
+        <div class="settings-list">
+          <div class="settings-row">
+            <label for="alarm-sound">Som do Alarme</label>
+            <select id="alarm-sound" class="select-inline">
+              <option value="bell">Sino</option>
+              <option value="digital">Digital</option>
+              <option value="birds">Passarinhos</option>
+            </select>
+          </div>
+          <div class="settings-row">
+            <label for="alarm-volume">Volume</label>
+            <input type="range" id="alarm-volume" min="0" max="100" value="80">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- Modal Idioma -->
+  <div id="modal-idioma" class="modal oculto">
+    <div class="modal-content">
+      <h3>Idioma</h3>
+      <div class="language-options">
+        <button data-lang="pt-BR" class="language-option active">Português</button>
+        <button data-lang="en" class="language-option">English</button>
+        <button data-lang="es" class="language-option">Español</button>
+      </div>
+      <button class="btn-fechar-modal" onclick="fecharModal('modal-idioma')">Fechar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script type="module" src="firebase.js"></script>
+</body>
+</html>
