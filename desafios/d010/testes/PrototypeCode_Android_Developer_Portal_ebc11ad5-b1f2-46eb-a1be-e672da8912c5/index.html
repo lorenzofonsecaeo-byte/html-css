@@ -1,0 +1,1586 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1284, initial-scale=1.0">
+  <title>Android Developer Portal</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-subtle: #f9fafb;
+      --surface-card: #f3f4f6;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --border: #d1d5db;
+      --border-light: #e5e7eb;
+      --accent: #10b981;
+      --accent-bright: #00ff00;
+      --accent-dark: #047857;
+      --radius: 8px;
+      --font: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1284px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Standard icon mask rule per requirements */
+    .ico {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: currentColor;
+      -webkit-mask: var(--i) center/contain no-repeat;
+      mask: var(--i) center/contain no-repeat;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    /* Screen containers */
+    [data-screen] {
+      width: 1284px;
+      min-height: 100vh;
+      background: #ffffff;
+      position: relative;
+    }
+
+    /* Global Header / Top banner */
+    .site-header {
+      width: 1284px;
+      padding: 24px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 1px solid var(--border-light);
+      background: #ffffff;
+    }
+
+    .top-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 24px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 9999px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #065f46;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .top-subtext {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* Menu Bar */
+    .menubar-wrap {
+      width: 1284px;
+      height: 48px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: relative;
+      z-index: 50;
+    }
+
+    .menubar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .menu-item {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .menu-btn:hover,
+    .menu-item.active .menu-btn {
+      background-color: #e5e7eb;
+      color: #000000;
+    }
+
+    .menu-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 220px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      padding: 6px 0;
+      display: none;
+      z-index: 100;
+    }
+
+    .menu-item:hover .menu-dropdown,
+    .menu-item:focus-within .menu-dropdown {
+      display: block;
+    }
+
+    .menu-dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .menu-dropdown-item:hover {
+      background-color: #f3f4f6;
+      color: #047857;
+    }
+
+    .menu-dropdown-shortcut {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-mono: monospace;
+      padding-left: 12px;
+    }
+
+    .menu-divider {
+      height: 1px;
+      background-color: var(--border-light);
+      margin: 4px 0;
+    }
+
+    .menubar-quick-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-chip {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-chip:hover {
+      border-color: #9ca3af;
+      background: #f9fafb;
+    }
+
+    .btn-chip-primary {
+      background: #10b981;
+      border-color: #059669;
+      color: #ffffff;
+    }
+
+    .btn-chip-primary:hover {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    /* Main Container Shell (matching 968px width) */
+    .outer-article-box {
+      width: 968px;
+      margin: 32px auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #ffffff;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .inner-article-box {
+      width: 890px;
+      margin: 0 auto;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 32px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Article title node (M249c856146341565e8133acbb4d0edbc1791213628245) */
+    .article-header-tag {
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 24px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Body Text block (Mdd2685cae39a40ea640bc588771801be1791213644424) */
+    .article-body-text {
+      width: 745px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #374151;
+      text-align: justify;
+      margin-bottom: 28px;
+      background: #f9fafb;
+      padding: 22px 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-light);
+    }
+
+    .article-body-text p {
+      margin-bottom: 12px;
+    }
+
+    .article-body-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-body-text strong {
+      color: var(--text);
+    }
+
+    /* Image diagram block (M1b2daee03fe30249c7945aec1bad3c3b1791214053946) */
+    .article-diagram-wrapper {
+      width: 743px;
+      height: 204px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f7fee7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 18px 24px;
+      margin-bottom: 32px;
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.15);
+    }
+
+    .diagram-layer {
+      flex: 1;
+      height: 100%;
+      margin: 0 6px;
+      background: #ffffff;
+      border: 1px solid #a7f3d0;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .diagram-layer:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .diagram-layer-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: #065f46;
+      margin-top: 6px;
+      margin-bottom: 2px;
+    }
+
+    .diagram-layer-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* Video player container (M63f5a815353dd701292443054b0172071791214468117) */
+    .video-wrapper-box {
+      width: 832px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #ffffff;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .video-header-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .video-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .video-badge {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Inner Video Player (M76a6bdc7d3f4803e08b51b7db42150811791214446554) */
+    .video-player {
+      width: 745px;
+      height: 444px;
+      background: #111827;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+    }
+
+    .video-screen-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #1f2937 0%, #030712 100%);
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .video-play-btn {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.95);
+      border: 3px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .video-play-btn:hover {
+      transform: scale(1.08);
+      background: #059669;
+    }
+
+    .video-track-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+      padding: 24px 20px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 20;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 38%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 0.2s linear;
+    }
+
+    .video-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+    }
+
+    .controls-left, .controls-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.9;
+      transition: opacity 0.15s ease;
+    }
+
+    .ctrl-btn:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .time-readout {
+      font-size: 13px;
+      font-family: monospace;
+      color: #d1d5db;
+    }
+
+    /* Secondary Content box (M93c2f1a7e2fea33672f08eccd7791ee11791214644343) */
+    .secondary-box {
+      width: 832px;
+      min-height: 247px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fafafa;
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .secondary-col {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .secondary-col-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .resource-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #374151;
+      background: #f9fafb;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .resource-item:hover {
+      background: #eef2ff;
+      color: #1e40af;
+    }
+
+    /* Footer (Mec2e03ae72860d3a3712803142fa43211791211892742) */
+    .site-footer {
+      width: 1284px;
+      min-height: 100px;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .footer-link:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    /* ========================================================
+       SCREEN 2: DOCUMENTATION & API EXPLORER
+       ======================================================== */
+    .docs-layout {
+      width: 1284px;
+      display: flex;
+      min-height: calc(100vh - 120px);
+    }
+
+    .docs-sidebar {
+      width: 280px;
+      border-right: 1px solid var(--border);
+      background: #fcfcfc;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .docs-search {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .docs-nav-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .docs-nav-item {
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #374151;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+
+    .docs-nav-item:hover,
+    .docs-nav-item.active {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 600;
+    }
+
+    .docs-content {
+      flex: 1;
+      padding: 36px 48px;
+      background: #ffffff;
+    }
+
+    .docs-hero {
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+
+    .code-preview-box {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 16px 0 24px 0;
+      overflow-x: auto;
+    }
+
+    .code-token-kw { color: #f472b6; }
+    .code-token-fn { color: #38bdf8; }
+    .code-token-str { color: #a7f3d0; }
+    .code-token-comm { color: #64748b; font-style: italic; }
+
+    /* ========================================================
+       SCREEN 3: ANDROID STUDIO CODE PLAYGROUND
+       ======================================================== */
+    .studio-shell {
+      width: 1284px;
+      height: 820px;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+      color: #cccccc;
+    }
+
+    .studio-top-toolbar {
+      height: 44px;
+      background: #252526;
+      border-bottom: 1px solid #333333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+
+    .studio-workspace {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .studio-tree {
+      width: 240px;
+      background: #252526;
+      border-right: 1px solid #333333;
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    .studio-code-panel {
+      flex: 1;
+      background: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .studio-tabs {
+      height: 36px;
+      background: #2d2d2d;
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .studio-tab {
+      padding: 8px 16px;
+      background: #1e1e1e;
+      color: #ffffff;
+      font-size: 12px;
+      border-top: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .studio-code-area {
+      flex: 1;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #9cdcfe;
+      overflow-y: auto;
+      white-space: pre;
+    }
+
+    .studio-preview-device {
+      width: 320px;
+      background: #2d2d2d;
+      border-left: 1px solid #333333;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .device-mockup {
+      width: 240px;
+      height: 480px;
+      background: #ffffff;
+      border: 8px solid #000000;
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .device-screen-ui {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    /* Notification Toast */
+    .proto-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111827;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      border-left: 4px solid var(--accent);
+    }
+  </style>
+
+
+
+<style data-mfsafety="1">
+html,body{width:100%!important;min-height:100%!important;margin:0!important;background:#fff!important;}
+body>*{max-width:none!important;}
+</style>
+<script data-mfsafety="1">(function(){ try{
+  window.addEventListener('error',function(e){ if(e&&e.preventDefault) e.preventDefault(); },true);
+  window.addEventListener('unhandledrejection',function(e){ if(e&&e.preventDefault) e.preventDefault(); });
+}catch(_){} })();</script>
+</head>
+<body>
+
+  <!-- ========================================================
+       SCREEN 1: "Site Android" (Main Article & Video Hub)
+       ======================================================== -->
+  <section data-screen="home" data-screen-start="">
+    <!-- Top Box / Header with Título (x=542, y=53, size 200x36) -->
+    <header class="site-header">
+      <div class="top-brand-badge" style="width: 220px; height: 38px; justify-content: center;">
+        <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/robot.svg); width: 22px; height: 22px;"></i>
+        <span>Site Android</span>
+      </div>
+      <p class="top-subtext">Portal Oficial para Engenheiros, Arquitetos e Criadores de Aplicativos</p>
+    </header>
+
+    <!-- Menubar box at y=190, h=48 (items: File, Edit, View, Window, Help) -->
+    <nav class="menubar-wrap" aria-label="Menu Principal">
+      <div class="menubar">
+        <!-- File Menu -->
+        <div class="menu-item" tabindex="0">
+          <button class="menu-btn" type="button">
+            File
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-down.svg); width:12px; height:12px;"></i>
+          </button>
+          <div class="menu-dropdown">
+            <div class="menu-dropdown-item" data-nav="studio">
+              <span>Novo Projeto (Studio)</span>
+              <span class="menu-dropdown-shortcut">Ctrl+N</span>
+            </div>
+            <div class="menu-dropdown-item" data-nav="docs">
+              <span>Abrir Documentação...</span>
+              <span class="menu-dropdown-shortcut">Ctrl+O</span>
+            </div>
+            <div class="menu-dropdown-item" id="btn-save-project">
+              <span>Salvar Alterações</span>
+              <span class="menu-dropdown-shortcut">Ctrl+S</span>
+            </div>
+            <div class="menu-divider"></div>
+            <div class="menu-dropdown-item" id="btn-exit-action">
+              <span>Exportar Pacote APK</span>
+              <span class="menu-dropdown-shortcut">Alt+E</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Menu -->
+        <div class="menu-item" tabindex="0">
+          <button class="menu-btn" type="button">
+            Edit
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-down.svg); width:12px; height:12px;"></i>
+          </button>
+          <div class="menu-dropdown">
+            <div class="menu-dropdown-item" onclick="triggerToast('Desfazer última alteração')">
+              <span>Desfazer (Undo)</span>
+              <span class="menu-dropdown-shortcut">Ctrl+Z</span>
+            </div>
+            <div class="menu-dropdown-item" onclick="triggerToast('Refazer alteração')">
+              <span>Refazer (Redo)</span>
+              <span class="menu-dropdown-shortcut">Ctrl+Y</span>
+            </div>
+            <div class="menu-divider"></div>
+            <div class="menu-dropdown-item" onclick="triggerToast('Trecho copiado para o clipboard')">
+              <span>Copiar Trecho</span>
+              <span class="menu-dropdown-shortcut">Ctrl+C</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Menu -->
+        <div class="menu-item" tabindex="0">
+          <button class="menu-btn" type="button">
+            View
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-down.svg); width:12px; height:12px;"></i>
+          </button>
+          <div class="menu-dropdown">
+            <div class="menu-dropdown-item" data-nav="docs">
+              <span>Visão Geral das APIs</span>
+            </div>
+            <div class="menu-dropdown-item" data-nav="studio">
+              <span>Simulador de Layout</span>
+            </div>
+            <div class="menu-dropdown-item" onclick="toggleReadingMode()">
+              <span>Modo Foco / Leitura</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Window Menu -->
+        <div class="menu-item" tabindex="0">
+          <button class="menu-btn" type="button">
+            Window
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-down.svg); width:12px; height:12px;"></i>
+          </button>
+          <div class="menu-dropdown">
+            <div class="menu-dropdown-item" data-nav="studio">
+              <span>Abrir Android Studio Lite</span>
+            </div>
+            <div class="menu-dropdown-item" onclick="triggerToast('Painel de Logs atualizado')">
+              <span>Logcat &amp; Depurador</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Help Menu -->
+        <div class="menu-item" tabindex="0">
+          <button class="menu-btn" type="button">
+            Help
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-down.svg); width:12px; height:12px;"></i>
+          </button>
+          <div class="menu-dropdown">
+            <div class="menu-dropdown-item" data-nav="docs">
+              <span>Guia de Início Rápido</span>
+            </div>
+            <div class="menu-dropdown-item" onclick="triggerToast('Versão instalada: Android 14 SDK - build 34.0.0')">
+              <span>Sobre o Android SDK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Nav Buttons right side of menubar -->
+      <div class="menubar-quick-actions">
+        <button class="btn-chip" data-nav="docs">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/book-open.svg); width:16px; height:16px;"></i>
+          <span>Documentação</span>
+        </button>
+        <button class="btn-chip btn-chip-primary" data-nav="studio">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:14px; height:14px;"></i>
+          <span>Abrir Studio</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Outer Article Box: size 968x1750 from layout -->
+    <main class="outer-article-box">
+      <!-- Inner Box: size 890x1710 from layout -->
+      <div class="inner-article-box" id="article-container">
+        
+        <!-- Sub-box with label "Título" (x=271, y=267, size 200x36) -->
+        <div class="article-header-tag" style="width: 260px; height: 38px;">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/feather4/file-text.svg); width: 18px; height: 18px; color: var(--accent-dark);"></i>
+          <span>Arquitetura do Android</span>
+        </div>
+
+        <!-- Text node (w=745, h=417): Body text with rich information -->
+        <div class="article-body-text">
+          <p>
+            O <strong>Android</strong> é uma plataforma de software de código aberto baseada no kernel Linux, projetada primariamente para dispositivos móveis, smart TVs e sistemas embarcados. Sua pilha de arquitetura organiza-se em camadas rigorosamente desacopladas, assegurando interoperabilidade, segurança através de caixas de areia (sandboxing) e execução eficiente sob restrições de energia e memória.
+          </p>
+          <p>
+            No núcleo de sua engenharia, os aplicativos executam sobre o <strong>Android Runtime (ART)</strong> com compilação Ahead-of-Time (AOT) e Just-in-Time (JIT), permitindo que o bytecode Dex seja traduzido para instruções de máquina nativas de alto desempenho. A camada de abstração de hardware (HAL) fornece interfaces padrão para componentes como câmera, bluetooth, sensores e aceleradores neurais sem expor detalhes proprietários dos fabricantes.
+          </p>
+          <p>
+            O ecossistema moderno adota <strong>Jetpack Compose</strong> como kit de ferramentas declarativo padrão, simplificando radicalmente o desenvolvimento de interfaces com reatividade unidirecional, integração com Coroutines para fluxos assíncronos e conformidade estrita com o Material Design 3.
+          </p>
+        </div>
+
+        <!-- Image node (w=743, h=204): Visual structural architecture representation -->
+        <div class="article-diagram-wrapper" title="Diagrama da Pilha Tecnológica do Android">
+          <div class="diagram-layer">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/mobile.svg); width:28px; height:28px; color:#059669;"></i>
+            <div class="diagram-layer-title">Apps do Sistema</div>
+            <div class="diagram-layer-desc">Compose, Kotlin, UI &amp; Atividades</div>
+          </div>
+          <div class="diagram-layer">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/feather4/layers.svg); width:28px; height:28px; color:#059669;"></i>
+            <div class="diagram-layer-title">Java API Framework</div>
+            <div class="diagram-layer-desc">Activity Manager, Location, Notifications</div>
+          </div>
+          <div class="diagram-layer">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/feather4/cpu.svg); width:28px; height:28px; color:#059669;"></i>
+            <div class="diagram-layer-title">ART &amp; Nativo (C/C++)</div>
+            <div class="diagram-layer-desc">Android Runtime, OpenGL ES, Vulkan</div>
+          </div>
+          <div class="diagram-layer">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/server.svg); width:28px; height:28px; color:#059669;"></i>
+            <div class="diagram-layer-title">Linux Kernel &amp; HAL</div>
+            <div class="diagram-layer-desc">Drivers, Memória, Processos e Segurança</div>
+          </div>
+        </div>
+
+        <!-- Box at 250,1007 size 832x610 enclosing Video player at 294,1076 size 745x444 -->
+        <div class="video-wrapper-box">
+          <div class="video-header-bar">
+            <div class="video-title">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/video.svg); width:20px; height:20px; color:#ef4444;"></i>
+              <span>Aula Interativa: Princípios Fundamentais do Android 14</span>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span class="video-badge">Vídeo Oficial</span>
+              <button class="btn-chip" id="btn-toggle-captions" type="button">Legendas (PT)</button>
+            </div>
+          </div>
+
+          <!-- Video Player element 745x444 -->
+          <div class="video-player" id="main-video-player">
+            <!-- Simulated video canvas with animated particles / preview -->
+            <div class="video-screen-content" id="video-screen-hit" onclick="togglePlayState()">
+              <div class="video-play-btn" id="video-center-btn">
+                <i class="ico" id="center-play-icon" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:34px; height:34px;"></i>
+              </div>
+              <div id="video-caption-box" style="margin-top: 24px; font-size: 14px; background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 4px; display: none;">
+                [Áudio]: "Bem-vindo ao curso oficial de desenvolvimento Android..."
+              </div>
+            </div>
+
+            <!-- Custom Controls bar -->
+            <div class="video-track-overlay">
+              <div class="progress-bar-container" id="video-scrub-bar" onclick="scrubVideo(event)">
+                <div class="progress-fill" id="video-progress-fill"></div>
+              </div>
+              <div class="video-controls-row">
+                <div class="controls-left">
+                  <button class="ctrl-btn" type="button" onclick="togglePlayState()" title="Play/Pause">
+                    <i class="ico" id="bar-play-icon" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:18px; height:18px;"></i>
+                  </button>
+                  <button class="ctrl-btn" type="button" onclick="restartVideo()" title="Reiniciar">
+                    <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/iconoir/rotate-camera-left.svg); width:16px; height:16px;"></i>
+                  </button>
+                  <span class="time-readout" id="video-time-display">04:18 / 11:20</span>
+                </div>
+                <div class="controls-right">
+                  <button class="ctrl-btn" type="button" onclick="toggleMute()" title="Áudio" id="btn-audio-mute">
+                    <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/iconic1/volume-high.svg); width:18px; height:18px;"></i>
+                  </button>
+                  <button class="ctrl-btn" type="button" onclick="toggleVideoSpeed()" title="Velocidade" id="btn-speed-tag" style="font-size:12px; font-weight:700;">
+                    1.0x
+                  </button>
+                  <button class="ctrl-btn" type="button" onclick="toggleFullscreenSimulation()" title="Expandir">
+                    <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/expand.svg); width:18px; height:18px;"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box at 250,1668 size 832x247: Downloads, Tools & SDK Requirements -->
+        <div class="secondary-box">
+          <div class="secondary-col">
+            <div class="secondary-col-title">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/download.svg); width:18px; height:18px; color:var(--accent);"></i>
+              <span>Pacotes &amp; SDKs</span>
+            </div>
+            <ul class="resource-list">
+              <li class="resource-item" onclick="triggerToast('Iniciando download do Android Studio Iguana (1.2 GB)...')">
+                <span>Android Studio Iguana (x86_64)</span>
+                <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/long-arrow-alt-right.svg); width:14px; height:14px;"></i>
+              </li>
+              <li class="resource-item" onclick="triggerToast('Baixando Command Line Tools rev 11.0...')">
+                <span>Command Line Tools (r11.0)</span>
+                <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/long-arrow-alt-right.svg); width:14px; height:14px;"></i>
+              </li>
+              <li class="resource-item" onclick="triggerToast('Baixando NDK r26b para compilação C++...')">
+                <span>Android NDK r26b Nativo</span>
+                <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/long-arrow-alt-right.svg); width:14px; height:14px;"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="secondary-col">
+            <div class="secondary-col-title">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/iconoir/code-brackets-square.svg); width:18px; height:18px; color:#2563eb;"></i>
+              <span>Acessos Rápidos</span>
+            </div>
+            <ul class="resource-list">
+              <li class="resource-item" data-nav="docs">
+                <span>Referência de Classes do Jetpack Compose</span>
+                <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-right.svg); width:14px; height:14px;"></i>
+              </li>
+              <li class="resource-item" data-nav="studio">
+                <span>Criar Primeiro Aplicativo "Olá Mundo"</span>
+                <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-right.svg); width:14px; height:14px;"></i>
+              </li>
+              <li class="resource-item" onclick="triggerToast('Diretrizes Material 3 carregadas')">
+                <span>Guia de Tokens Material You (M3)</span>
+                <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/chevron-right.svg); width:14px; height:14px;"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer box at 0,2024 size 1280x100 -->
+    <footer class="site-footer">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/robot.svg); width: 22px; height: 22px; color: var(--accent);"></i>
+        <span><strong>Android Open Source Project</strong> © 2025 Google LLC. Documentação licenciada sob Apache 2.0.</span>
+      </div>
+      <div class="footer-links">
+        <span class="footer-link" data-nav="docs">Documentação</span>
+        <span class="footer-link" data-nav="studio">Playground Web</span>
+        <span class="footer-link" onclick="triggerToast('Políticas de Privacidade e Cookies do Android')">Privacidade</span>
+        <span class="footer-link" onclick="triggerToast('Termos de Licença de Código')">Termos</span>
+      </div>
+    </footer>
+  </section>
+
+
+  <!-- ========================================================
+       SCREEN 2: "Documentação & SDK Reference"
+       ======================================================== -->
+  <section data-screen="docs">
+    <header class="site-header" style="padding: 16px 40px; flex-direction: row; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <button class="btn-chip" data-nav="home" title="Voltar ao Início">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-left.svg); width:16px; height:16px;"></i>
+          <span>Voltar ao Artigo</span>
+        </button>
+        <div class="top-brand-badge" style="padding: 6px 16px; font-size: 15px;">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/book-open.svg); width: 18px; height: 18px;"></i>
+          <span>Documentação do Desenvolvedor</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-chip btn-chip-primary" data-nav="studio">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/code.svg); width:16px; height:16px;"></i>
+          <span>Abrir no Studio</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <!-- Sidebar -->
+      <aside class="docs-sidebar">
+        <input type="text" class="docs-search" id="docs-search-input" placeholder="Buscar APIs e Classes..." oninput="filterDocs(this.value)">
+        <div>
+          <div class="docs-nav-group-title">Fundamentos</div>
+          <div class="docs-nav-item active" onclick="selectDocTab(this, 'compose-basics')">Jetpack Compose UI</div>
+          <div class="docs-nav-item" onclick="selectDocTab(this, 'lifecycle')">Ciclo de Vida da Activity</div>
+          <div class="docs-nav-item" onclick="selectDocTab(this, 'coroutines')">Coroutines &amp; ViewModel</div>
+          <div class="docs-nav-item" onclick="selectDocTab(this, 'room-db')">Persistência com Room DB</div>
+        </div>
+        <div>
+          <div class="docs-nav-group-title">Arquitetura Recomendada</div>
+          <div class="docs-nav-item" onclick="selectDocTab(this, 'mvi')">Padrão MVI &amp; Clean Arch</div>
+          <div class="docs-nav-item" onclick="selectDocTab(this, 'hilt')">Injeção com Hilt/Dagger</div>
+          <div class="docs-nav-item" onclick="selectDocTab(this, 'workmanager')">Tarefas em 2º Plano</div>
+        </div>
+      </aside>
+
+      <!-- Main Docs Article -->
+      <main class="docs-content">
+        <div class="docs-hero">
+          <h1 style="font-size: 28px; font-weight: 800; margin-bottom: 8px;" id="doc-title">Começando com Jetpack Compose</h1>
+          <p style="color: var(--text-muted); font-size: 16px;" id="doc-desc">
+            Construa interfaces modernas e fluidas no Android declarando elementos visuais em código Kotlin puro.
+          </p>
+        </div>
+
+        <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Exemplo Prático: Componente de Perfil</h2>
+        <p style="color: #4b5563; margin-bottom: 12px; line-height: 1.6;">
+          Utilize o modificador <code>@Composable</code> para definir blocos modulares. A reatividade cuida de atualizar a tela automaticamente sempre que os estados observáveis mudarem:
+        </p>
+
+        <div class="code-preview-box">
+<span class="code-token-kw">package</span> com.example.android.ui
+
+<span class="code-token-kw">import</span> androidx.compose.material3.*
+<span class="code-token-kw">import</span> androidx.compose.runtime.*
+
+<span class="code-token-kw">@Composable</span>
+<span class="code-token-kw">fun</span> <span class="code-token-fn">AndroidGreetingCard</span>(name: <span class="code-token-str">String</span>) {
+    <span class="code-token-kw">var</span> isExpanded <span class="code-token-kw">by</span> remember { mutableStateOf(<span class="code-token-kw">false</span>) }
+
+    <span class="code-token-fn">ElevatedCard</span>(
+        modifier = Modifier.padding(16.dp),
+        onClick = { isExpanded = !isExpanded }
+    ) {
+        <span class="code-token-fn">Column</span>(modifier = Modifier.padding(16.dp)) {
+            <span class="code-token-fn">Text</span>(text = <span class="code-token-str">"Olá, $name!"</span>, style = MaterialTheme.typography.titleMedium)
+            <span class="code-token-kw">if</span> (isExpanded) {
+                <span class="code-token-fn">Text</span>(text = <span class="code-token-str">"Bem-vindo ao ecossistema Android nativo com Compose 1.6."</span>)
+            }
+        }
+    }
+}</div>
+
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 18px 24px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-weight: 700; color: #065f46; font-size: 15px;">Deseja experimentar esse código ao vivo?</div>
+            <div style="font-size: 13.5px; color: #047857; margin-top: 2px;">Abra agora o ambiente de testes interativo do Android Studio Lite.</div>
+          </div>
+          <button class="btn-chip btn-chip-primary" data-nav="studio">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:14px; height:14px;"></i>
+            <span>Executar no Playground</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       SCREEN 3: "Android Studio Lite Playground"
+       ======================================================== -->
+  <section data-screen="studio">
+    <div class="studio-shell">
+      <!-- Studio Top Toolbar -->
+      <div class="studio-top-toolbar">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <button class="btn-chip" data-nav="home" style="background:#333; color:#eee; border-color:#444;" title="Voltar ao Artigo">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-left.svg); width:14px; height:14px;"></i>
+            <span>Site Android</span>
+          </button>
+          <span style="font-size: 13px; font-weight: 600; color: #ffffff;">Android Studio Web • Projeto "MeuPrimeiroApp"</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button class="btn-chip" data-nav="docs" style="background:#333; color:#eee; border-color:#444;">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/book-open.svg); width:14px; height:14px;"></i>
+            <span>Docs</span>
+          </button>
+          <button class="btn-chip btn-chip-primary" id="btn-run-app" onclick="runSimulatedApp()">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:14px; height:14px;"></i>
+            <span>Compilar &amp; Rodar (Shift+F10)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Studio Workspace -->
+      <div class="studio-workspace">
+        <!-- Project Tree -->
+        <div class="studio-tree">
+          <div style="font-size: 11px; text-transform: uppercase; color: #888; font-weight: 700; margin-bottom: 10px;">Projeto Android</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#eee;">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/folder.svg); width:14px; height:14px; color:#fbbf24;"></i>
+              <span>app/src/main/java</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; cursor:pointer; padding-left:16px; color:#38bdf8;">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/file-code.svg); width:14px; height:14px;"></i>
+              <span>MainActivity.kt</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; cursor:pointer; padding-left:16px; color:#aaa;">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/file-code.svg); width:14px; height:14px;"></i>
+              <span>Theme.kt</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; cursor:pointer; margin-top: 10px; color:#eee;">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/folder.svg); width:14px; height:14px; color:#fbbf24;"></i>
+              <span>res/layout</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; cursor:pointer; padding-left:16px; color:#aaa;">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/file.svg); width:14px; height:14px;"></i>
+              <span>activity_main.xml</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Editor Panel -->
+        <div class="studio-code-panel">
+          <div class="studio-tabs">
+            <div class="studio-tab">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/file-code.svg); width:14px; height:14px; color:#38bdf8;"></i>
+              <span>MainActivity.kt</span>
+            </div>
+          </div>
+          <div class="studio-code-area" id="studio-code-text">class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MaterialTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    GreetingCard(appName = "Android 14")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun GreetingCard(appName: String) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Default.Favorite,
+            contentDescription = "Android Bot",
+            tint = Color(0xFF10B981)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "App rodando com sucesso no $appName!")
+    }
+}</div>
+        </div>
+
+        <!-- Device Preview -->
+        <div class="studio-preview-device">
+          <div style="font-size: 12px; color: #999; margin-bottom: 12px; display:flex; align-items:center; gap:6px;">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/mobile.svg); width:14px; height:14px;"></i>
+            <span>Pixel 8 Pro Emulado (API 34)</span>
+          </div>
+
+          <div class="device-mockup">
+            <div style="height: 24px; background:#000; width:100%; display:flex; justify-content:space-between; align-items:center; padding:0 12px; color:#fff; font-size:10px;">
+              <span>12:00</span>
+              <div style="display:flex; gap:4px;">
+                <span>5G</span>
+                <span>100%</span>
+              </div>
+            </div>
+            <div class="device-screen-ui" id="device-screen-preview">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/robot.svg); width:48px; height:48px; color:#10b981; margin-bottom:12px;"></i>
+              <div style="font-weight:700; font-size:16px; margin-bottom:4px;" id="preview-text-status">App Pronto</div>
+              <p style="font-size:12px; color:#64748b; margin-bottom:16px;">Pressione "Compilar &amp; Rodar" para atualizar o build.</p>
+              <button class="btn-chip btn-chip-primary" style="font-size:12px;" onclick="simulateInAppTap()">
+                <span>Clique Interativo</span>
+              </button>
+              <div id="preview-tap-counter" style="margin-top:12px; font-size:11px; color:#059669; font-weight:600;">Toques: 0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Self-dismissing toast feedback per instructions -->
+  <div class="proto-toast" id="proto-toast" role="alert">
+    <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/check-circle.svg); width:20px; height:20px; color:var(--accent);"></i>
+    <span id="proto-toast-text">Ação executada com sucesso.</span>
+  </div>
+
+  <script>
+    /* ========================================================
+       CRASH-FREE INTERACTIVITY & STATE MANAGEMENT
+       ======================================================== */
+    let toastTimeout = null;
+    function triggerToast(message) {
+      const toast = document.getElementById('proto-toast');
+      const toastText = document.getElementById('proto-toast-text');
+      if (!toast || !toastText) return;
+
+      toastText.textContent = message;
+      toast.style.display = 'flex';
+
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+      toastTimeout = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3200);
+    }
+
+    // Video Player Simulation State
+    let isPlaying = false;
+    let videoProgress = 38;
+    let videoInterval = null;
+    let currentSpeed = 1.0;
+    let isMuted = false;
+    let showCaptions = false;
+
+    function togglePlayState() {
+      isPlaying = !isPlaying;
+      const centerPlayIcon = document.getElementById('center-play-icon');
+      const barPlayIcon = document.getElementById('bar-play-icon');
+      const centerBtn = document.getElementById('video-center-btn');
+
+      if (isPlaying) {
+        if (centerPlayIcon) centerPlayIcon.style.setProperty('--i', 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/pause.svg)');
+        if (barPlayIcon) barPlayIcon.style.setProperty('--i', 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/pause.svg)');
+        if (centerBtn) centerBtn.style.opacity = '0.35';
+        triggerToast('Reproduzindo vídeo tutorial');
+
+        if (videoInterval) clearInterval(videoInterval);
+        videoInterval = setInterval(() => {
+          videoProgress = (videoProgress + 0.5);
+          if (videoProgress >= 100) {
+            videoProgress = 100;
+            togglePlayState();
+          }
+          updateVideoUI();
+        }, 1000 / currentSpeed);
+      } else {
+        if (centerPlayIcon) centerPlayIcon.style.setProperty('--i', 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg)');
+        if (barPlayIcon) barPlayIcon.style.setProperty('--i', 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg)');
+        if (centerBtn) centerBtn.style.opacity = '1';
+        if (videoInterval) clearInterval(videoInterval);
+        triggerToast('Vídeo pausado');
+      }
+    }
+
+    function updateVideoUI() {
+      const fill = document.getElementById('video-progress-fill');
+      const timeDisplay = document.getElementById('video-time-display');
+      if (fill) fill.style.width = videoProgress + '%';
+
+      const totalSeconds = 680; // 11:20
+      const currentSeconds = Math.floor((videoProgress / 100) * totalSeconds);
+      const curM = String(Math.floor(currentSeconds / 60)).padStart(2, '0');
+      const curS = String(currentSeconds % 60).padStart(2, '0');
+      if (timeDisplay) {
+        timeDisplay.textContent = curM + ':' + curS + ' / 11:20';
+      }
+    }
+
+    function restartVideo() {
+      videoProgress = 0;
+      updateVideoUI();
+      if (!isPlaying) togglePlayState();
+      triggerToast('Vídeo reiniciado');
+    }
+
+    function scrubVideo(e) {
+      const scrubBar = document.getElementById('video-scrub-bar');
+      if (!scrubBar) return;
+      const rect = scrubBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      videoProgress = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+      updateVideoUI();
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      const muteBtn = document.getElementById('btn-audio-mute');
+      if (!muteBtn) return;
+      const ico = muteBtn.querySelector('.ico');
+      if (ico) {
+        ico.style.setProperty('--i', isMuted ? 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/volume-down.svg)' : 'url(https://assets.mockflow.com/app/wireframepro/svg/iconic1/volume-high.svg)');
+      }
+      triggerToast(isMuted ? 'Áudio silenciado' : 'Áudio ativado');
+    }
+
+    function toggleVideoSpeed() {
+      const speeds = [1.0, 1.25, 1.5, 2.0];
+      const nextIdx = (speeds.indexOf(currentSpeed) + 1) % speeds.length;
+      currentSpeed = speeds[nextIdx];
+      const speedBtn = document.getElementById('btn-speed-tag');
+      if (speedBtn) speedBtn.textContent = currentSpeed.toFixed(1) + 'x';
+      if (isPlaying) {
+        // restart interval at new speed
+        clearInterval(videoInterval);
+        videoInterval = setInterval(() => {
+          videoProgress += 0.5;
+          if (videoProgress >= 100) {
+            videoProgress = 100;
+            togglePlayState();
+          }
+          updateVideoUI();
+        }, 1000 / currentSpeed);
+      }
+      triggerToast('Velocidade alterada para ' + currentSpeed + 'x');
+    }
+
+    function toggleFullscreenSimulation() {
+      triggerToast('Modo de tela cheia simulado no desktop');
+    }
+
+    // Toggle Captions button
+    const btnCaptions = document.getElementById('btn-toggle-captions');
+    if (btnCaptions) {
+      btnCaptions.addEventListener('click', () => {
+        showCaptions = !showCaptions;
+        const captionBox = document.getElementById('video-caption-box');
+        if (captionBox) {
+          captionBox.style.display = showCaptions ? 'block' : 'none';
+        }
+        btnCaptions.style.backgroundColor = showCaptions ? '#e0f2fe' : '';
+        btnCaptions.style.color = showCaptions ? '#0284c7' : '';
+        triggerToast(showCaptions ? 'Legendas ativadas' : 'Legendas desativadas');
+      });
+    }
+
+    // Reading mode
+    let isReadingMode = false;
+    function toggleReadingMode() {
+      isReadingMode = !isReadingMode;
+      const container = document.getElementById('article-container');
+      if (container) {
+        container.style.backgroundColor = isReadingMode ? '#fffbeb' : '#ffffff';
+        container.style.borderColor = isReadingMode ? '#fde68a' : 'var(--border-light)';
+      }
+      triggerToast(isReadingMode ? 'Modo leitura ativado (Tons quentes)' : 'Modo padrão restaurado');
+    }
+
+    // Studio Device Mockup Tap Counter
+    let tapCount = 0;
+    function simulateInAppTap() {
+      tapCount++;
+      const counter = document.getElementById('preview-tap-counter');
+      if (counter) counter.textContent = 'Toques: ' + tapCount;
+    }
+
+    function runSimulatedApp() {
+      const status = document.getElementById('preview-text-status');
+      if (status) status.textContent = 'Compilando...';
+      triggerToast('Gradle Build: Executando tarefas :app:assembleDebug...');
+
+      setTimeout(() => {
+        if (status) status.textContent = 'App Atualizado!';
+        triggerToast('Sucesso: APK instalado no emulador Pixel 8 Pro');
+      }, 900);
+    }
+
+    // Docs tab selection helper
+    const docData = {
+      'compose-basics': {
+        title: 'Começando com Jetpack Compose',
+        desc: 'Construa interfaces modernas e fluidas no Android declarando elementos visuais em código Kotlin puro.'
+      },
+      'lifecycle': {
+        title: 'Ciclo de Vida da Activity & Fragment',
+        desc: 'Gerenciamento estruturado de onCreate, onStart, onResume e destruição de processos sob baixa memória.'
+      },
+      'coroutines': {
+        title: 'Assincronismo com Kotlin Coroutines & Flow',
+        desc: 'Execução não bloqueante na thread principal com segurança de despacho de I/O e Default threads.'
+      },
+      'room-db': {
+        title: 'Banco de Dados Local com Room ORM',
+        desc: 'Abstração relacional robusta sobre SQLite com verificação de consultas em tempo de compilação.'
+      },
+      'mvi': {
+        title: 'Arquitetura MVI e Fluxo Unidirecional (UDF)',
+        desc: 'Separação estrita de Intenção do usuário, Redutor de Estado e Renderização imutável.'
+      },
+      'hilt': {
+        title: 'Injeção de Dependências com Hilt',
+        desc: 'Módulos organizados com escopo por tela e injeção automática de repositórios nos ViewModels.'
+      },
+      'workmanager': {
+        title: 'Execução de Tarefas com WorkManager',
+        desc: 'Agendamento confiável e persistente de sincronizações em segundo plano compatíveis com Doze Mode.'
+      }
+    };
+
+    function selectDocTab(element, key) {
+      document.querySelectorAll('.docs-nav-item').forEach(el => el.classList.remove('active'));
+      if (element) element.classList.add('active');
+
+      const data = docData[key];
+      if (data) {
+        const titleEl = document.getElementById('doc-title');
+        const descEl = document.getElementById('doc-desc');
+        if (titleEl) titleEl.textContent = data.title;
+        if (descEl) descEl.textContent = data.desc;
+        triggerToast('Tópico carregado: ' + data.title);
+      }
+    }
+
+    function filterDocs(query) {
+      const items = document.querySelectorAll('.docs-nav-item');
+      items.forEach(item => {
+        if (!query || item.textContent.toLowerCase().includes(query.toLowerCase())) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Save & Exit menubar items
+    const btnSave = document.getElementById('btn-save-project');
+    if (btnSave) {
+      btnSave.addEventListener('click', () => {
+        triggerToast('Configurações do workspace salvas com sucesso');
+      });
+    }
+
+    const btnExit = document.getElementById('btn-exit-action');
+    if (btnExit) {
+      btnExit.addEventListener('click', () => {
+        triggerToast('Build APK finalizado: app-release-unsigned.apk gerado');
+      });
+    }
+  </script>
+
+
+&gt;&gt;&gt;&gt;<script>(function(){if(!window.MFProto){window.MFProto={ai:function(){return Promise.reject(new Error("AI features are available in the MockFlow editor."));},nav:function(s){try{if(window.__mfGoto)window.__mfGoto(s);}catch(e){}},device:function(){},track:function(){}};}window.addEventListener("error",function(e){var el=e&&e.target;if(el&&el.tagName==="IMG")el.style.visibility="hidden";},true);var hist=[];function screens(){return Array.prototype.slice.call(document.querySelectorAll("[data-screen]"));}function show(id,push){var scr=screens();if(!scr.length)return;var target=document.querySelector('[data-screen="'+id+'"]')||scr[0];scr.forEach(function(s){if(s===target){s.classList.add("mfp-active");s.removeAttribute("hidden");s.style.display="";if(window.getComputedStyle(s).display==="none")s.style.setProperty("display","block","important");}else{s.classList.remove("mfp-active");s.style.display="";}});if(push)hist.push(target.getAttribute("data-screen"));try{window.scrollTo(0,0);}catch(e){}}window.__mfGoto=function(id){show(id,true);};function initNav(){var scr=screens();if(!scr.length)return;var st=document.createElement("style");st.textContent="[data-screen]:not(.mfp-active){display:none!important;}";document.head.appendChild(st);var start=document.querySelector("[data-screen-start]")||scr[0];hist=[start.getAttribute("data-screen")];show(start.getAttribute("data-screen"),false);document.addEventListener("click",function(e){var t=e.target.closest?e.target.closest("[data-nav]"):null;if(!t)return;e.preventDefault();var to=t.getAttribute("data-nav");if(to==="back"){if(hist.length>1){hist.pop();show(hist[hist.length-1],false);}}else if(to&&to!==hist[hist.length-1]&&document.querySelector('[data-screen="'+to+'"]'))show(to,true);},true);Array.prototype.forEach.call(document.querySelectorAll("[data-nav]"),function(el){el.style.cursor="pointer";});}function flash(){var els=document.querySelectorAll("[data-nav]");Array.prototype.forEach.call(els,function(el){el.classList.add("mf-hotspot-flash");});setTimeout(function(){Array.prototype.forEach.call(els,function(el){el.classList.remove("mf-hotspot-flash");});},1100);}function initHot(){var st=document.createElement("style");st.textContent=".mf-hotspot-flash{outline:2px solid rgba(37,99,235,.9)!important;outline-offset:1px!important;box-shadow:0 0 0 4px rgba(37,99,235,.22)!important;border-radius:3px;}";document.head.appendChild(st);document.addEventListener("click",function(e){var t=e.target.closest?e.target.closest('[data-nav],a,button,input,select,textarea,[role="button"],label'):null;if(!t)flash();});}document.addEventListener("DOMContentLoaded",function(){initNav();initHot();setTimeout(flash,600);});})();</script></body></html>

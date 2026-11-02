@@ -1,0 +1,1376 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <title>Android Mascot History</title>
+  <style>
+    :root {
+      --c-lightest: #C5ebd6;
+      --c-light: #83e1ad;
+      --c-accent: #3ddc84;
+      --c-dark-green: #2fa866;
+      --c-deep-green: #063d1e;
+      --c-bg: #ffffff;
+      --c-surface: #ffffff;
+      --c-text: #111827;
+      --c-muted: #4b5563;
+      --c-border: #d1d5db;
+      --font-headline: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+      --font-android: 'Segoe UI', -apple-system, Roboto, sans-serif;
+      --font-body: Arial, Helvetica, sans-serif;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--c-lightest);
+      color: var(--c-text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      width: 1284px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    .ico {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: currentColor;
+      -webkit-mask: var(--i) center/contain no-repeat;
+      mask: var(--i) center/contain no-repeat;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    /* Screen containers */
+    [data-screen] {
+      width: 1284px;
+      min-height: 100vh;
+      background-color: var(--c-bg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Brand Header */
+    .top-header {
+      background: linear-gradient(180deg, var(--c-deep-green) 0%, var(--c-dark-green) 100%);
+      color: #ffffff;
+      padding: 48px 40px 36px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(6, 61, 30, 0.2);
+    }
+    .top-header h1 {
+      font-family: var(--font-headline);
+      font-size: 46px;
+      letter-spacing: 2px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0px rgba(6, 61, 30, 0.7);
+    }
+    .top-header p {
+      font-size: 18px;
+      color: var(--c-lightest);
+      max-width: 680px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* Navigation Bar */
+    .main-nav {
+      background-color: var(--c-deep-green);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 48px;
+      border-bottom: 2px solid var(--c-accent);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      background: transparent;
+      border: none;
+      color: var(--c-lightest);
+      font-family: var(--font-android);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .nav-item:hover {
+      background-color: rgba(61, 220, 132, 0.2);
+      color: #ffffff;
+    }
+    .nav-item.active {
+      background-color: var(--c-accent);
+      color: var(--c-deep-green);
+      font-weight: 700;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .search-pill {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(131, 225, 173, 0.4);
+      border-radius: 20px;
+      padding: 4px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffffff;
+    }
+    .search-pill input {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      width: 140px;
+    }
+    .search-pill input::placeholder {
+      color: var(--c-lightest);
+      opacity: 0.8;
+    }
+
+    /* Page Layout Container */
+    .page-wrapper {
+      background-color: var(--c-lightest);
+      padding: 30px 20px;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    .content-card {
+      width: 968px;
+      background-color: var(--c-surface);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 48px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Headings & Text */
+    .headline-title {
+      font-family: var(--font-headline);
+      font-size: 38px;
+      letter-spacing: 1.5px;
+      color: var(--c-deep-green);
+      border-bottom: 3px solid var(--c-light);
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sub-title {
+      font-family: var(--font-android);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--c-dark-green);
+      background: linear-gradient(90deg, rgba(197, 235, 214, 0.6) 0%, transparent 100%);
+      padding: 6px 14px;
+      border-radius: 4px;
+      border-left: 5px solid var(--c-dark-green);
+      margin: 12px 0 6px;
+    }
+    .body-copy {
+      font-size: 16px;
+      color: var(--c-text);
+      line-height: 1.8;
+      text-align: justify;
+    }
+    .body-copy strong {
+      color: var(--c-deep-green);
+    }
+    .body-copy a {
+      color: var(--c-dark-green);
+      font-weight: bold;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Graphic Display / Banner */
+    .hero-banner {
+      width: 100%;
+      height: 204px;
+      background: linear-gradient(135deg, #1b5e20 0%, #2fa866 50%, #3ddc84 100%);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 20px 40px;
+      color: #ffffff;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      top: -50px;
+      right: -40px;
+    }
+    .hero-banner-info {
+      max-width: 480px;
+      z-index: 1;
+    }
+    .hero-banner-info h3 {
+      font-family: var(--font-headline);
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+    .hero-banner-info p {
+      font-size: 14px;
+      color: var(--c-lightest);
+    }
+    .mascot-svg-wrap {
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Video Player Box */
+    .video-container {
+      background-color: var(--c-deep-green);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 6px 18px rgba(6, 61, 30, 0.25);
+    }
+    .video-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+    .video-header h4 {
+      font-family: var(--font-android);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--c-accent);
+    }
+    .video-viewport {
+      width: 100%;
+      height: 440px;
+      background: #000000;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .video-canvas {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #1b3827 0%, #08160e 80%, #000000 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .video-play-btn {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      color: var(--c-deep-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #ffffff;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(61, 220, 132, 0.6);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    .video-play-btn:hover {
+      transform: scale(1.08);
+      background-color: #ffffff;
+      color: var(--c-dark-green);
+    }
+    .video-watermark {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .video-controls {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+      padding: 16px 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 2;
+    }
+    .video-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+    }
+    .video-progress-fill {
+      width: 42%;
+      height: 100%;
+      background: var(--c-accent);
+      border-radius: 3px;
+      position: relative;
+    }
+    .video-control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-size: 13px;
+    }
+    .btn-icon {
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s;
+    }
+    .btn-icon:hover {
+      color: var(--c-accent);
+    }
+
+    /* Aside Box: "Quer aprender mais?" */
+    .extra-box {
+      background-color: var(--c-lightest);
+      border: 2px solid var(--c-light);
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+    }
+    .extra-header {
+      background-color: var(--c-dark-green);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: var(--font-android);
+      font-weight: 700;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .dessert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .dessert-chip {
+      background: #ffffff;
+      border: 1px solid var(--c-light);
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-deep-green);
+    }
+    .dessert-chip span.v-num {
+      background-color: var(--c-accent);
+      color: var(--c-deep-green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: var(--c-accent);
+      color: var(--c-deep-green);
+      border: none;
+      font-family: var(--font-android);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, background-color 0.15s, box-shadow 0.15s;
+      box-shadow: 0 2px 6px rgba(61, 220, 132, 0.4);
+    }
+    .btn-primary:hover {
+      background-color: #2fe07f;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(61, 220, 132, 0.6);
+    }
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--c-deep-green);
+      border: 1px solid var(--c-dark-green);
+      font-family: var(--font-android);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.15s;
+    }
+    .btn-secondary:hover {
+      background-color: var(--c-lightest);
+    }
+
+    /* Footer */
+    .main-footer {
+      background-color: var(--c-deep-green);
+      color: #ffffff;
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 4px solid var(--c-dark-green);
+    }
+    .footer-left p {
+      font-size: 14px;
+      color: var(--c-lightest);
+    }
+    .footer-left a {
+      color: var(--c-accent);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-nav button {
+      background: none;
+      border: none;
+      color: var(--c-light);
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .footer-nav button:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Curiosities Screen specifics */
+    .version-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .version-card {
+      border: 1px solid var(--c-border);
+      border-left: 6px solid var(--c-accent);
+      background: #ffffff;
+      padding: 18px 24px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .version-card:hover {
+      box-shadow: 0 4px 14px rgba(47, 168, 102, 0.15);
+      border-left-color: var(--c-dark-green);
+    }
+    .version-badge {
+      background: var(--c-lightest);
+      color: var(--c-deep-green);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+      min-width: 100px;
+    }
+    .version-badge strong {
+      display: block;
+      font-size: 18px;
+    }
+    .version-info h4 {
+      font-size: 18px;
+      color: var(--c-deep-green);
+      margin-bottom: 4px;
+    }
+    .version-info p {
+      font-size: 14px;
+      color: var(--c-muted);
+    }
+
+    /* Video Library Grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .video-card-item {
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .video-thumb {
+      height: 180px;
+      background: linear-gradient(135deg, var(--c-deep-green) 0%, #1e5a36 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      position: relative;
+    }
+    .video-thumb .play-mini {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      color: var(--c-deep-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .video-card-body {
+      padding: 16px;
+    }
+    .video-card-body h4 {
+      color: var(--c-deep-green);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+    .video-card-body p {
+      font-size: 13px;
+      color: var(--c-muted);
+    }
+
+    /* Contact Form */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--c-deep-green);
+    }
+    .form-control {
+      padding: 10px 14px;
+      border: 1px solid var(--c-border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--c-dark-green);
+      box-shadow: 0 0 0 3px rgba(131, 225, 173, 0.4);
+    }
+    textarea.form-control {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    /* In-page Toast */
+    .toast-feedback {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--c-deep-green);
+      color: #ffffff;
+      border-left: 5px solid var(--c-accent);
+      padding: 14px 22px;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      font-size: 14px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+    }
+    .toast-feedback.show {
+      display: flex;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+
+
+
+<style data-mfsafety="1">
+html,body{width:100%!important;min-height:100%!important;margin:0!important;background:#fff!important;}
+body>*{max-width:none!important;}
+</style>
+<script data-mfsafety="1">(function(){ try{
+  window.addEventListener('error',function(e){ if(e&&e.preventDefault) e.preventDefault(); },true);
+  window.addEventListener('unhandledrejection',function(e){ if(e&&e.preventDefault) e.preventDefault(); });
+}catch(_){} })();</script>
+</head>
+<body>
+
+  <!-- ================= SCREEN 1: HOME / ARTIGO PRINCIPAL ================= -->
+  <section data-screen="home" data-screen-start="">
+    <!-- Top Header -->
+    <header class="top-header">
+      <h1>CURIOSIDADES DE TECNOLOGIA</h1>
+      <p>Tudo aquilo que você sempre quis saber sobre o mundo Tech, em um único lugar.</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+      <div class="nav-links">
+        <button class="nav-item active" data-nav="home">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/home.svg)"></i> Home
+        </button>
+        <button class="nav-item" data-nav="curiosities">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/lightbulb.svg)"></i> Curiosidades
+        </button>
+        <button class="nav-item" data-nav="media">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/video.svg)"></i> Vídeos
+        </button>
+        <button class="nav-item" data-nav="contact">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/envelope.svg)"></i> Fale Conosco
+        </button>
+      </div>
+      <div class="nav-actions">
+        <div class="search-pill">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/search.svg); width:16px; height:16px;"></i>
+          <input type="text" placeholder="Buscar no site..." id="home-search-input">
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Wrapper -->
+    <main class="page-wrapper">
+      <article class="content-card">
+        <!-- Title & Subtitle -->
+        <div>
+          <h2 class="headline-title">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/robot.svg); width:34px; height:34px; color:var(--c-accent)"></i>
+            HISTÓRIA DO MASCOTE DO ANDROID
+          </h2>
+          <p style="color:var(--c-muted); font-size:14px; margin-top:4px;">Publicado em Tecnologia • Atualizado recentemente</p>
+        </div>
+
+        <!-- Body Copy 1 -->
+        <p class="body-copy">
+          Provavelmente você sabe que o sistema operacional <strong>Android</strong>, mantido pelo Google, é um dos mais utilizados do planeta para dispositivos móveis. Mas o que muitas pessoas não sabem é a verdadeira jornada por trás do seu icônico robozinho verde: o amigável <strong>Bugdroid</strong>.
+        </p>
+
+        <h3 class="sub-title">A PRIMEIRA VERSÃO (DANDROIDS)</h3>
+        <p class="body-copy">
+          A primeira tentativa de criar uma mascote surgiu em 2007 pelas mãos de <strong>Dan Morrill</strong>. Ele precisava de ícones para apresentar o projeto a desenvolvedores internos e criou quatro simpáticos robozinhos tubulares com cores vivas e olhos esbugalhados, conhecidos carinhosamente pela equipe como <em>Dandroids</em>.
+        </p>
+
+        <!-- Hero Graphic Banner (Matches source Image node 743x204) -->
+        <div class="hero-banner">
+          <div class="hero-banner-info">
+            <h3>DAN MORRILL &amp; IRINA BLOK</h3>
+            <p>Do rascunho de Dan Morrill à versão universal criada pela designer russa Irina Blok inspirada em placas de banheiro.</p>
+            <div style="margin-top:12px;">
+              <button class="btn-primary" style="font-size:13px; padding:6px 14px;" data-nav="curiosities">
+                Ver comparação completa
+              </button>
+            </div>
+          </div>
+          <div class="mascot-svg-wrap">
+            <!-- Bugdroid Vector Illustration -->
+            <svg width="120" height="130" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Antennas -->
+              <line x1="28" y1="20" x2="16" y2="4" stroke="#ffffff" stroke-width="4" stroke-linecap="round"></line>
+              <line x1="72" y1="20" x2="84" y2="4" stroke="#ffffff" stroke-width="4" stroke-linecap="round"></line>
+              <!-- Head -->
+              <path d="M15 45 C15 25, 85 25, 85 45 Z" fill="#fffff0"></path>
+              <!-- Eyes -->
+              <circle cx="34" cy="34" r="3.5" fill="#1b5e20"></circle>
+              <circle cx="66" cy="34" r="3.5" fill="#1b5e20"></circle>
+              <!-- Body -->
+              <rect x="15" y="50" width="70" height="42" rx="8" fill="#ffffff"></rect>
+              <!-- Left Arm -->
+              <rect x="3" y="50" width="8" height="34" rx="4" fill="#ffffff"></rect>
+              <!-- Right Arm -->
+              <rect x="89" y="50" width="8" height="34" rx="4" fill="#ffffff"></rect>
+              <!-- Legs -->
+              <rect x="28" y="94" width="10" height="14" rx="5" fill="#ffffff"></rect>
+              <rect x="62" y="94" width="10" height="14" rx="5" fill="#ffffff"></rect>
+            </svg>
+          </div>
+        </div>
+
+        <h3 class="sub-title">O SURGIMENTO DO BUGDROID DEFINITIVO</h3>
+        <p class="body-copy">
+          A missão oficial de criar o logotipo foi dada à designer <strong>Irina Blok</strong>. Sua diretriz era conceber um símbolo simples, amigável e de fácil identificação internacional. A inspiração veio de onde menos se esperava: os pictogramas universais de figuras masculina e feminina nos banheiros públicos! Assim nasceu o Bugdroid, uma figura geométrica pura e aberta a customizações.
+        </p>
+
+        <!-- Interactive Video Player Container (Matches wireframe node box at 250,1007 size 832x610 with video 745x444) -->
+        <section class="video-container">
+          <div class="video-header">
+            <h4>
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play-circle%202.svg); width:20px; height:20px;"></i>
+              DOCUMENTÁRIO: A HISTÓRIA DO ANDROID (EXCLUSIVO)
+            </h4>
+            <span style="font-size:13px; color:var(--c-lightest);"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/eye.svg); width:14px; height:14px;"></i> 1.2M visualizações</span>
+          </div>
+
+          <div class="video-viewport" id="main-video-player">
+            <div class="video-canvas">
+              <button class="video-play-btn" id="btn-toggle-play" title="Reproduzir vídeo">
+                <i class="ico" id="play-icon" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:32px; height:32px;"></i>
+              </button>
+              <div class="video-watermark">ANDROID ORIGINS • CAPÍTULO 1</div>
+              <p style="color:var(--c-lightest); font-size:13px;" id="video-status-text">Clique no play para iniciar o documentário interativo</p>
+            </div>
+
+            <!-- Video Controls Bar -->
+            <div class="video-controls">
+              <div class="video-progress-bar" id="video-bar">
+                <div class="video-progress-fill" id="video-fill" style="width: 35%;"></div>
+              </div>
+              <div class="video-control-row">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <button class="btn-icon" id="mini-play-btn"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:16px; height:16px;"></i></button>
+                  <button class="btn-icon" id="mini-volume-btn"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/iconic1/volume-high.svg); width:16px; height:16px;"></i></button>
+                  <span id="video-timer">04:22 / 12:45</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span style="background:rgba(255,255,255,0.2); font-size:11px; padding:2px 6px; border-radius:3px;">1080p HD</span>
+                  <button class="btn-icon" id="fullscreen-btn" title="Tela Cheia"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/expand.svg); width:16px; height:16px;"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aside Box: "Quer aprender mais?" (Matches wireframe node box 250,1668 size 832x247) -->
+        <aside class="extra-box">
+          <div class="extra-header">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/question-circle.svg); width:18px; height:18px;"></i>
+            Quer aprender mais?
+          </div>
+          <p class="body-copy" style="font-size:15px;">
+            Você sabia que todas as versões oficiais do Android entre a 1.5 e a 9.0 receberam nomes de guloseimas e doces em ordem alfabética? Veja algumas das mais lembradas:
+          </p>
+          <div class="dessert-grid">
+            <div class="dessert-chip"><span class="v-num">1.5</span> Cupcake</div>
+            <div class="dessert-chip"><span class="v-num">1.6</span> Donut</div>
+            <div class="dessert-chip"><span class="v-num">2.0</span> Eclair</div>
+            <div class="dessert-chip"><span class="v-num">2.2</span> Froyo</div>
+            <div class="dessert-chip"><span class="v-num">2.3</span> Gingerbread</div>
+            <div class="dessert-chip"><span class="v-num">4.4</span> KitKat</div>
+            <div class="dessert-chip"><span class="v-num">5.0</span> Lollipop</div>
+          </div>
+          <div style="margin-top:18px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:var(--c-muted);">Veja a lista completa de sobremesas até as versões modernas.</span>
+            <button class="btn-primary" data-nav="curiosities" style="font-size:13px; padding:7px 16px;">
+              Explorar Todas as Versões <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-right.svg); width:14px; height:14px;"></i>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Conclusion copy -->
+        <p class="body-copy">
+          Hoje o Android continua em evolução constante, mas seu simpático robô verde permanece como uma das marcas mais reconhecidas de toda a história da tecnologia. Gostou dessa curiosidade? Deixe sua mensagem ou dúvida no nosso canal de contato!
+        </p>
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-left">
+        <p>Site criado para fins educacionais e preservação da história da tecnologia.</p>
+        <p style="margin-top:4px; font-size:12px; color:var(--c-light);">Padrão de design inspirado pelo projeto original CursoemVídeo.</p>
+      </div>
+      <div class="footer-nav">
+        <button data-nav="home">Início</button>
+        <button data-nav="curiosities">Curiosidades</button>
+        <button data-nav="media">Vídeos</button>
+        <button data-nav="contact">Fale Conosco</button>
+      </div>
+    </footer>
+  </section>
+
+
+  <!-- ================= SCREEN 2: CURIOSIDADES & VERSÕES ================= -->
+  <section data-screen="curiosities">
+    <header class="top-header">
+      <h1>CURIOSIDADES &amp; HISTÓRICO</h1>
+      <p>Todas as versões com nomes doces e fatos pouco conhecidos do sistema.</p>
+    </header>
+
+    <nav class="main-nav">
+      <div class="nav-links">
+        <button class="nav-item" data-nav="home">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/home.svg)"></i> Home
+        </button>
+        <button class="nav-item active" data-nav="curiosities">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/lightbulb.svg)"></i> Curiosidades
+        </button>
+        <button class="nav-item" data-nav="media">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/video.svg)"></i> Vídeos
+        </button>
+        <button class="nav-item" data-nav="contact">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/envelope.svg)"></i> Fale Conosco
+        </button>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-secondary" data-nav="home" style="padding:4px 12px; font-size:13px; color:#ffffff; border-color:var(--c-accent); background:transparent;">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-left.svg); width:14px; height:14px;"></i> Voltar ao Artigo
+        </button>
+      </div>
+    </nav>
+
+    <main class="page-wrapper">
+      <article class="content-card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h2 class="headline-title">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/iconoir/candlestick-chart.svg); width:32px; height:32px; color:var(--c-accent);"></i>
+            A LINHA DO TEMPO DAS SOBREMESAS
+          </h2>
+          <span style="background:var(--c-lightest); color:var(--c-deep-green); padding:4px 12px; border-radius:14px; font-size:12px; font-weight:bold;">12 Versões Clássicas</span>
+        </div>
+
+        <p class="body-copy">
+          A tradição começou discretamente com a versão 1.5 <strong>Cupcake</strong> e seguiu rigorosamente a ordem alfabética de sobremesas até a versão 9.0 <strong>Pie</strong>, quando a Google decidiu adotar números para facilitar a compreensão global.
+        </p>
+
+        <!-- Timeline / List of Android Desserts -->
+        <div class="version-timeline">
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v1.5</strong>
+              <span>2009</span>
+            </div>
+            <div class="version-info">
+              <h4>Cupcake</h4>
+              <p>Primeira versão a trazer teclado virtual na tela e upload direto para o YouTube.</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v1.6</strong>
+              <span>2009</span>
+            </div>
+            <div class="version-info">
+              <h4>Donut</h4>
+              <p>Adicionou suporte a diferentes tamanhos de tela e caixa de pesquisa rápida integrada.</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v2.0 / 2.1</strong>
+              <span>2009</span>
+            </div>
+            <div class="version-info">
+              <h4>Eclair</h4>
+              <p>Estreou a navegação curva-a-curva no Google Maps e papéis de parede animados (Live Wallpapers).</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v2.2</strong>
+              <span>2010</span>
+            </div>
+            <div class="version-info">
+              <h4>Froyo (Frozen Yogurt)</h4>
+              <p>Introduziu o recurso de roteador Wi-Fi (Tethering) e execução 5x mais rápida com compilador JIT.</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v2.3</strong>
+              <span>2010</span>
+            </div>
+            <div class="version-info">
+              <h4>Gingerbread</h4>
+              <p>Adicionou suporte para sensores NFC, câmeras frontais para chamadas de vídeo e modo de economia de energia.</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v4.0</strong>
+              <span>2011</span>
+            </div>
+            <div class="version-info">
+              <h4>Ice Cream Sandwich</h4>
+              <p>Primeiro sistema unificado para smartphones e tablets, com design Holo e desbloqueio facial pioneiro.</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v4.4</strong>
+              <span>2013</span>
+            </div>
+            <div class="version-info">
+              <h4>KitKat</h4>
+              <p>Parceria comercial histórica com a Nestlé. Otimizado para rodar suavemente em aparelhos com apenas 512 MB de RAM.</p>
+            </div>
+          </div>
+
+          <div class="version-card">
+            <div class="version-badge">
+              <strong>v5.0</strong>
+              <span>2014</span>
+            </div>
+            <div class="version-info">
+              <h4>Lollipop</h4>
+              <p>Apresentou ao mundo a linguagem de design <em>Material Design</em> com profundidade, sombras e animações naturais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="version-card">
+            <div class="version-badge">
+              <strong>v6.0</strong>
+              <span>2014</span>
+            </div>
+            <div class="version-info">
+              <h4>Marshmallow</h4>
+              <p>Apresentou ao mundo a linguagem de design <em>Material Design</em> com profundidade, sombras e animações naturais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="version-card">
+            <div class="version-badge">
+              <strong>v7.0</strong>
+              <span>2014</span>
+            </div>
+            <div class="version-info">
+              <h4>Nougat</h4>
+              <p>Apresentou ao mundo a linguagem de design <em>Material Design</em> com profundidade, sombras e animações naturais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="version-card">
+            <div class="version-badge">
+              <strong>v8.0</strong>
+              <span>2014</span>
+            </div>
+            <div class="version-info">
+              <h4>Oreo</h4>
+              <p>Apresentou ao mundo a linguagem de design <em>Material Design</em> com profundidade, sombras e animações naturais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="version-card">
+            <div class="version-badge">
+              <strong>v9.0</strong>
+              <span>2014</span>
+            </div>
+            <div class="version-info">
+              <h4>Pie</h4>
+              <p>Apresentou ao mundo a linguagem de design <em>Material Design</em> com profundidade, sombras e animações naturais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:16px;">
+          <button class="btn-primary" data-nav="media">
+            <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/film.svg)"></i> Assistir Vídeos das Estátuas no Googleplex
+          </button>
+        </div>
+      </article>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer-left">
+        <p>Curiosidades de Tecnologia • Linha do Tempo das Sobremesas Android</p>
+      </div>
+      <div class="footer-nav">
+        <button data-nav="home">Home</button>
+        <button data-nav="media">Vídeos</button>
+        <button data-nav="contact">Fale Conosco</button>
+      </div>
+    </footer>
+  </section>
+
+
+  <!-- ================= SCREEN 3: VÍDEOS & MULTIMÍDIA ================= -->
+  <section data-screen="media">
+    <header class="top-header">
+      <h1>GALERIA &amp; MULTIMÍDIA</h1>
+      <p>Entrevistas com criadores, apresentações históricas e anúncios originais.</p>
+    </header>
+
+    <nav class="main-nav">
+      <div class="nav-links">
+        <button class="nav-item" data-nav="home">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/home.svg)"></i> Home
+        </button>
+        <button class="nav-item" data-nav="curiosities">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/lightbulb.svg)"></i> Curiosidades
+        </button>
+        <button class="nav-item active" data-nav="media">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/video.svg)"></i> Vídeos
+        </button>
+        <button class="nav-item" data-nav="contact">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/envelope.svg)"></i> Fale Conosco
+        </button>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-secondary" data-nav="home" style="padding:4px 12px; font-size:13px; color:#ffffff; border-color:var(--c-accent); background:transparent;">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-left.svg); width:14px; height:14px;"></i> Voltar
+        </button>
+      </div>
+    </nav>
+
+    <main class="page-wrapper">
+      <article class="content-card">
+        <h2 class="headline-title">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/film.svg); width:32px; height:32px; color:var(--c-accent)"></i>
+          COLEÇÃO DE VÍDEOS HISTÓRICOS
+        </h2>
+        <p class="body-copy">
+          Confira o acervo de registros audiovisuais desde a aquisição pelo Google em 2005 até a consagração mundial.
+        </p>
+
+        <div class="video-grid">
+          <!-- Card 1 -->
+          <div class="video-card-item">
+            <div class="video-thumb">
+              <div class="play-mini"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:24px; height:24px;"></i></div>
+              <span style="position:absolute; bottom:10px; right:12px; background:rgba(0,0,0,0.8); font-size:12px; padding:2px 6px; border-radius:4px;">12:45</span>
+            </div>
+            <div class="video-card-body">
+              <h4>A Origem do Bugdroid: Entrevista com Irina Blok</h4>
+              <p>A designer revela como desenhou o logotipo em guardanapos e como o Google decidiu torná-lo livre para o público.</p>
+              <button class="btn-secondary" style="margin-top:12px; width:100%; justify-content:center;" onclick="window.triggerToast('Reproduzindo: Entrevista Irina Blok')">
+                Assistir no Player
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="video-card-item">
+            <div class="video-thumb">
+              <div class="play-mini"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:24px; height:24px;"></i></div>
+              <span style="position:absolute; bottom:10px; right:12px; background:rgba(0,0,0,0.8); font-size:12px; padding:2px 6px; border-radius:4px;">08:14</span>
+            </div>
+            <div class="video-card-body">
+              <h4>Inauguração das Estátuas no Googleplex</h4>
+              <p>O tradicional evento na sede da Califórnia cada vez que uma nova sobremesa era revelada ao mundo.</p>
+              <button class="btn-secondary" style="margin-top:12px; width:100%; justify-content:center;" onclick="window.triggerToast('Reproduzindo: Estátuas Googleplex')">
+                Assistir no Player
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="video-card-item">
+            <div class="video-thumb">
+              <div class="play-mini"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:24px; height:24px;"></i></div>
+              <span style="position:absolute; bottom:10px; right:12px; background:rgba(0,0,0,0.8); font-size:12px; padding:2px 6px; border-radius:4px;">19:02</span>
+            </div>
+            <div class="video-card-body">
+              <h4>O Primeiro Smartphone: HTC Dream (T-Mobile G1)</h4>
+              <p>Reveja o aparelho de 2008 que desafiou os padrões com teclado QWERTY deslizante e bolinha trackball.</p>
+              <button class="btn-secondary" style="margin-top:12px; width:100%; justify-content:center;" onclick="window.triggerToast('Reproduzindo: Retrospectiva HTC Dream')">
+                Assistir no Player
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="video-card-item">
+            <div class="video-thumb">
+              <div class="play-mini"><i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg); width:24px; height:24px;"></i></div>
+              <span style="position:absolute; bottom:10px; right:12px; background:rgba(0,0,0,0.8); font-size:12px; padding:2px 6px; border-radius:4px;">05:30</span>
+            </div>
+            <div class="video-card-body">
+              <h4>Evolução do Logo: De 2008 ao Modelo 3D Moderno</h4>
+              <p>Uma análise visual minuciosa das tipografias e da recente transição do Bugdroid para três dimensões.</p>
+              <button class="btn-secondary" style="margin-top:12px; width:100%; justify-content:center;" onclick="window.triggerToast('Reproduzindo: Evolução Visual do Logo')">
+                Assistir no Player
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--c-lightest); padding:18px; border-radius:var(--radius); display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+          <span>Tem uma sugestão de documentário ou vídeo histórico?</span>
+          <button class="btn-primary" data-nav="contact">
+            Enviar Sugestão <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-right.svg); width:14px; height:14px;"></i>
+          </button>
+        </div>
+      </article>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer-left">
+        <p>Curiosidades de Tecnologia • Central de Mídia</p>
+      </div>
+      <div class="footer-nav">
+        <button data-nav="home">Home</button>
+        <button data-nav="curiosities">Curiosidades</button>
+        <button data-nav="contact">Fale Conosco</button>
+      </div>
+    </footer>
+  </section>
+
+
+  <!-- ================= SCREEN 4: FALE CONOSCO ================= -->
+  <section data-screen="contact">
+    <header class="top-header">
+      <h1>FALE CONOSCO</h1>
+      <p>Envie dúvidas, contribuições históricas ou sugestões de artigos.</p>
+    </header>
+
+    <nav class="main-nav">
+      <div class="nav-links">
+        <button class="nav-item" data-nav="home">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/home.svg)"></i> Home
+        </button>
+        <button class="nav-item" data-nav="curiosities">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/lightbulb.svg)"></i> Curiosidades
+        </button>
+        <button class="nav-item" data-nav="media">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/video.svg)"></i> Vídeos
+        </button>
+        <button class="nav-item active" data-nav="contact">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/envelope.svg)"></i> Fale Conosco
+        </button>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-secondary" data-nav="home" style="padding:4px 12px; font-size:13px; color:#ffffff; border-color:var(--c-accent); background:transparent;">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/arrow-left.svg); width:14px; height:14px;"></i> Voltar para Home
+        </button>
+      </div>
+    </nav>
+
+    <main class="page-wrapper">
+      <article class="content-card" style="max-width:760px; margin:0 auto;">
+        <h2 class="headline-title">
+          <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/envelope.svg); width:32px; height:32px; color:var(--c-accent)"></i>
+          ENVIE SUA MENSAGEM
+        </h2>
+        <p class="body-copy">
+          Você tem alguma história especial sobre seu primeiro dispositivo Android? Ou encontrou algum dado histórico curioso? Mande uma mensagem para nossa equipe editorial!
+        </p>
+
+        <form id="contact-form" onsubmit="return false;" style="margin-top:10px;">
+          <div class="form-group">
+            <label for="contact-name">Seu Nome Completo *</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="Ex: Lucas Silva" required="">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">Seu E-mail *</label>
+            <input type="email" id="contact-email" class="form-control" placeholder="nome@provedor.com" required="">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-topic">Assunto</label>
+            <select id="contact-topic" class="form-control">
+              <option value="curiosidade">Enviar nova curiosidade</option>
+              <option value="correcao">Correção de dado histórico</option>
+              <option value="sugestao">Sugestão de novo artigo</option>
+              <option value="elogio">Elogio ou feedback geral</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Sua Mensagem *</label>
+            <textarea id="contact-message" class="form-control" placeholder="Escreva aqui os detalhes da sua mensagem..." required=""></textarea>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:24px;">
+            <button type="button" class="btn-secondary" data-nav="home">Cancelar</button>
+            <button type="submit" class="btn-primary" id="btn-submit-contact">
+              <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/paper-plane.svg); width:16px; height:16px;"></i>
+              Enviar Mensagem
+            </button>
+          </div>
+        </form>
+      </article>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer-left">
+        <p>Curiosidades de Tecnologia • Formulário de Contato</p>
+      </div>
+      <div class="footer-nav">
+        <button data-nav="home">Home</button>
+        <button data-nav="curiosities">Curiosidades</button>
+        <button data-nav="media">Vídeos</button>
+      </div>
+    </footer>
+  </section>
+
+  <!-- In-page Self-Dismissing Toast -->
+  <div id="toast" class="toast-feedback">
+    <i class="ico" style="--i:url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/check-circle.svg); width:20px; height:20px; color:var(--c-accent)"></i>
+    <span id="toast-text">Ação realizada com sucesso!</span>
+  </div>
+
+  <script>
+    (function() {
+      // Toast Notification helper (self-dismissing)
+      var toastTimer = null;
+      window.triggerToast = function(msg) {
+        var toast = document.getElementById('toast');
+        var text = document.getElementById('toast-text');
+        if (!toast || !text) return;
+        text.textContent = msg;
+        toast.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() {
+          toast.classList.remove('show');
+        }, 3200);
+      };
+
+      // Video Play / Pause Interactive simulation
+      var isPlaying = false;
+      var playBtn = document.getElementById('btn-toggle-play');
+      var miniPlayBtn = document.getElementById('mini-play-btn');
+      var playIcon = document.getElementById('play-icon');
+      var statusText = document.getElementById('video-status-text');
+      var videoFill = document.getElementById('video-fill');
+      var videoBar = document.getElementById('video-bar');
+      var videoTimer = document.getElementById('video-timer');
+
+      function togglePlay() {
+        isPlaying = !isPlaying;
+        if (playIcon) {
+          playIcon.style.setProperty('--i', isPlaying ? 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/pause.svg)' : 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg)');
+        }
+        if (statusText) {
+          statusText.textContent = isPlaying ? 'Reproduzindo: A História do Android (Capítulo 1)' : 'Vídeo pausado. Clique para retomar.';
+        }
+        if (miniPlayBtn) {
+          var miniIco = miniPlayBtn.querySelector('.ico');
+          if (miniIco) {
+            miniIco.style.setProperty('--i', isPlaying ? 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/pause.svg)' : 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/play.svg)');
+          }
+        }
+        window.triggerToast(isPlaying ? 'Reprodução iniciada' : 'Vídeo pausado');
+      }
+
+      if (playBtn) playBtn.addEventListener('click', togglePlay);
+      if (miniPlayBtn) miniPlayBtn.addEventListener('click', togglePlay);
+
+      // Seek simulation on progress bar click
+      if (videoBar && videoFill) {
+        videoBar.addEventListener('click', function(e) {
+          var rect = videoBar.getBoundingClientRect();
+          var pct = Math.max(0, Math.min(100, Math.round(((e.clientX - rect.left) / rect.width) * 100)));
+          videoFill.style.width = pct + '%';
+          if (videoTimer) {
+            var totalSec = 765; // 12:45
+            var currentSec = Math.floor((pct / 100) * totalSec);
+            var m = Math.floor(currentSec / 60);
+            var s = currentSec % 60;
+            videoTimer.textContent = (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s) + ' / 12:45';
+          }
+          window.triggerToast('Avançado para ' + pct + '%');
+        });
+      }
+
+      // Volume toggle simulation
+      var miniVol = document.getElementById('mini-volume-btn');
+      var isMuted = false;
+      if (miniVol) {
+        miniVol.addEventListener('click', function() {
+          isMuted = !isMuted;
+          var ico = miniVol.querySelector('.ico');
+          if (ico) {
+            ico.style.setProperty('--i', isMuted ? 'url(https://assets.mockflow.com/app/wireframepro/svg/fontawesome5/volume-down.svg)' : 'url(https://assets.mockflow.com/app/wireframepro/svg/iconic1/volume-high.svg)');
+          }
+          window.triggerToast(isMuted ? 'Áudio silenciado' : 'Áudio restaurado');
+        });
+      }
+
+      // Fullscreen button simulation
+      var fsBtn = document.getElementById('fullscreen-btn');
+      if (fsBtn) {
+        fsBtn.addEventListener('click', function() {
+          window.triggerToast('Modo de exibição otimizado');
+        });
+      }
+
+      // Search input simulation
+      var searchInput = document.getElementById('home-search-input');
+      if (searchInput) {
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+            window.triggerToast('Buscando por: "' + searchInput.value.trim() + '"...');
+            searchInput.value = '';
+          }
+        });
+      }
+
+      // Contact Form submit
+      var contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var nameInput = document.getElementById('contact-name');
+          var nameVal = nameInput ? nameInput.value.trim() : 'Amigo';
+          window.triggerToast('Obrigado, ' + (nameVal || 'visitante') + '! Sua mensagem foi enviada com sucesso.');
+          contactForm.reset();
+        });
+      }
+    })();
+  </script>
+
+
+&gt;&gt;&gt;&gt;<script>(function(){if(!window.MFProto){window.MFProto={ai:function(){return Promise.reject(new Error("AI features are available in the MockFlow editor."));},nav:function(s){try{if(window.__mfGoto)window.__mfGoto(s);}catch(e){}},device:function(){},track:function(){}};}window.addEventListener("error",function(e){var el=e&&e.target;if(el&&el.tagName==="IMG")el.style.visibility="hidden";},true);var hist=[];function screens(){return Array.prototype.slice.call(document.querySelectorAll("[data-screen]"));}function show(id,push){var scr=screens();if(!scr.length)return;var target=document.querySelector('[data-screen="'+id+'"]')||scr[0];scr.forEach(function(s){if(s===target){s.classList.add("mfp-active");s.removeAttribute("hidden");s.style.display="";if(window.getComputedStyle(s).display==="none")s.style.setProperty("display","block","important");}else{s.classList.remove("mfp-active");s.style.display="";}});if(push)hist.push(target.getAttribute("data-screen"));try{window.scrollTo(0,0);}catch(e){}}window.__mfGoto=function(id){show(id,true);};function initNav(){var scr=screens();if(!scr.length)return;var st=document.createElement("style");st.textContent="[data-screen]:not(.mfp-active){display:none!important;}";document.head.appendChild(st);var start=document.querySelector("[data-screen-start]")||scr[0];hist=[start.getAttribute("data-screen")];show(start.getAttribute("data-screen"),false);document.addEventListener("click",function(e){var t=e.target.closest?e.target.closest("[data-nav]"):null;if(!t)return;e.preventDefault();var to=t.getAttribute("data-nav");if(to==="back"){if(hist.length>1){hist.pop();show(hist[hist.length-1],false);}}else if(to&&to!==hist[hist.length-1]&&document.querySelector('[data-screen="'+to+'"]'))show(to,true);},true);Array.prototype.forEach.call(document.querySelectorAll("[data-nav]"),function(el){el.style.cursor="pointer";});}function flash(){var els=document.querySelectorAll("[data-nav]");Array.prototype.forEach.call(els,function(el){el.classList.add("mf-hotspot-flash");});setTimeout(function(){Array.prototype.forEach.call(els,function(el){el.classList.remove("mf-hotspot-flash");});},1100);}function initHot(){var st=document.createElement("style");st.textContent=".mf-hotspot-flash{outline:2px solid rgba(37,99,235,.9)!important;outline-offset:1px!important;box-shadow:0 0 0 4px rgba(37,99,235,.22)!important;border-radius:3px;}";document.head.appendChild(st);document.addEventListener("click",function(e){var t=e.target.closest?e.target.closest('[data-nav],a,button,input,select,textarea,[role="button"],label'):null;if(!t)flash();});}document.addEventListener("DOMContentLoaded",function(){initNav();initHot();setTimeout(flash,600);});})();</script></body></html>
